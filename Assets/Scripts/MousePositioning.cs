@@ -9,6 +9,7 @@ public class MousePositioning : MonoBehaviour
     [SerializeField] private Vector3 worldPosition;
 
     private Pickupable heldObject;
+    private float rotationSpeed = 400f; // TODO: Make this adjustable via menu
 
     void Update()
     {
@@ -19,15 +20,13 @@ public class MousePositioning : MonoBehaviour
             worldPosition = hitData.point;
 
 
-            // Handle clicks
+            // Handle click and release of the left mouse button
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Clicked at: " + hitData.transform.name);
-
+                //Debug.Log("Clicked at: " + hitData.transform.name);
                 Pickupable target = hitData.transform.GetComponent<Pickupable>();
                 if (target)
                 {
-                    Debug.Log("Found pickupable object");
                     heldObject = target;
                     heldObject.gameObject.layer = 1 << 1; // Layer "ignore raycast"
                 }
@@ -39,6 +38,7 @@ public class MousePositioning : MonoBehaviour
                 DropObject();
             }
 
+            // Move the held object to the correct position, as long as it's being held
             if (heldObject)
             {
                 BoxCollider boxCollider = heldObject.GetComponent<BoxCollider>();
@@ -48,7 +48,7 @@ public class MousePositioning : MonoBehaviour
                 heldObject.transform.position = floatPosition;
 
                 // Rotate object
-                heldObject.transform.Rotate(new Vector3(0, Input.mouseScrollDelta.y * Time.deltaTime * 300f, 0));
+                heldObject.transform.Rotate(new Vector3(0, Input.mouseScrollDelta.y * Time.deltaTime * rotationSpeed, 0));
             }
 
 
