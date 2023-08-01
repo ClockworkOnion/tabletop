@@ -7,7 +7,6 @@ public class ChatWindow : MonoBehaviour
 {
     TMP_InputField inputField;
     TextMeshProUGUI chatLogDisplay;
-    List<string> chatLogText = new List<string>();
     Queue<string> chatLogQueue = new Queue<string>();
 
     private void Awake()
@@ -20,20 +19,16 @@ public class ChatWindow : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) && inputField.text != "")
         {
-            chatLogText.Add(inputField.text);
-            chatLogQueue.Enqueue(inputField.text);
+            SubmitChatMessage(inputField.text);
             inputField.text = "";
-
-            if (chatLogQueue.Count >= 30) {
-                chatLogQueue.Dequeue();
-	    }
-
-            chatLogDisplay.SetText(string.Join("\n", chatLogQueue));
         }
     }
 
-    public void onSubmitChatMessage(string inputText)
+    public void SubmitChatMessage(string inputText)
     {
-        Debug.Log("Pressed enter:" + inputText);
+        chatLogQueue.Enqueue(inputText);
+        if (chatLogQueue.Count >= 30) chatLogQueue.Dequeue();
+        chatLogDisplay.SetText(string.Join("\n", chatLogQueue));
     }
 }
+
