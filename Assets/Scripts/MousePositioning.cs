@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class MousePositioning : MonoBehaviour
+public class MousePositioning : NetworkBehaviour
 {
 
     [SerializeField] private Vector3 screenPosition;
@@ -30,6 +31,11 @@ public class MousePositioning : MonoBehaviour
                     heldObject = target;
                     heldObject.gameObject.layer = 1 << 1; // Layer "ignore raycast"
                 }
+
+                //              if (target.GetType() == typeof(Pickupable)) {
+                //                  Debug.Log("It's a hit!");
+                //                  target
+                //}
 
             }
 
@@ -64,6 +70,10 @@ public class MousePositioning : MonoBehaviour
             DropObject();
         }
 
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            TestServerRpc();
+        }
 
 
         transform.position = worldPosition;
@@ -78,5 +88,11 @@ public class MousePositioning : MonoBehaviour
             heldObject.gameObject.layer = 0;
             heldObject = null;
         }
+    }
+
+    [ServerRpc]
+    private void TestServerRpc()
+    {
+        Debug.Log("ServerRPC" + OwnerClientId);
     }
 }

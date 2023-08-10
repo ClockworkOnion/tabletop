@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
+using UnityEngine.SceneManagement;
 
 public class NetworkUI : MonoBehaviour
 {
     [SerializeField] private Button hostButton;
     [SerializeField] private Button clientButton;
+    [SerializeField] private Button restartButton;
 
     private void Awake()
     {
@@ -20,5 +22,12 @@ public class NetworkUI : MonoBehaviour
         {
             NetworkManager.Singleton.StartClient();
         });
+
+        restartButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
+
+
     }
 }
