@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 using TMPro;
 
 public class ChatWindow : MonoBehaviour
@@ -22,7 +20,6 @@ public class ChatWindow : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) && inputField.text != "")
         {
-            //SubmitChatMessage(inputField.text);
             NetworkChatMessage(inputField.text);
             inputField.text = "";
         }
