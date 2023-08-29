@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
+/** <summary>Component on the individual player objects (mouse pointers)</summary> */
 public class PlayerNetworkHandler : NetworkBehaviour
 {
 

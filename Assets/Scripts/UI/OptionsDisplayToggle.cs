@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** <summary>Handles showing and hiding the options panel, or rather the click
+on the button for showing/hiding the panel. </summary> */
 public class OptionsDisplayToggle : MonoBehaviour
 {
     private bool isVisible = true;

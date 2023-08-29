@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
+/** <summary>Reads the mouse position on the screen and translates it into commands
+for things like moving objects. Component on individual player objects (mouse pointer).</summary> */
 public class MousePositioning : NetworkBehaviour
 {
 
@@ -12,6 +14,15 @@ public class MousePositioning : NetworkBehaviour
     private Pickupable heldObject;
     private float rotationSpeed = 400f; // TODO: Make this adjustable via menu
 
+    private DebugText debugText;
+
+    public override void OnNetworkSpawn()
+    {
+        debugText = GameObject.Find("DebugText").GetComponent<DebugText>();
+        if (debugText == null) { Debug.Log("No debugtext found!"); }
+        debugText.DisplayText("It works!");
+    }
+
     void Update()
     {
         screenPosition = Input.mousePosition;
@@ -20,23 +31,15 @@ public class MousePositioning : NetworkBehaviour
         {
             worldPosition = hitData.point;
 
-
             // Handle click and release of the left mouse button
             if (Input.GetMouseButtonDown(0))
             {
-                //Debug.Log("Clicked at: " + hitData.transform.name);
                 Pickupable target = hitData.transform.GetComponent<Pickupable>();
                 if (target)
                 {
                     heldObject = target;
-                    heldObject.gameObject.layer = 1 << 1; // Layer "ignore raycast"
+                    heldObject.gameObject.layer = 1 << 1; // Layer "ignore raycast", also prevents other players from trying to grab it.
                 }
-
-                //              if (target.GetType() == typeof(Pickupable)) {
-                //                  Debug.Log("It's a hit!");
-                //                  target
-                //}
-
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -47,14 +50,21 @@ public class MousePositioning : NetworkBehaviour
             // Move the held object to the correct position, as long as it's being held
             if (heldObject)
             {
-                BoxCollider boxCollider = heldObject.GetComponent<BoxCollider>();
+                BoxCollider boxCollider = heldObject.GetComponent<BoxCollider>(); // is this OK to do on a non-owned network object?
+                //BoxCollider boxCollider = heldObject.GetBoxColliderServerRpc(); // won't work like this
                 Vector3 colliderHeight = boxCollider.bounds.size;
 
                 Vector3 floatPosition = worldPosition + Vector3.up * colliderHeight.y / 2;
-                heldObject.transform.position = floatPosition;
+                //heldObject.transform.position = floatPosition; // Works only for the server
+                heldObject.moveObjectServerRpc(floatPosition);
+
+
+                debugText.DisplayText("Worldposition: " + floatPosition.ToString() + "\nColliderheight: " + colliderHeight.y);
 
                 // Rotate object
-                heldObject.transform.Rotate(new Vector3(0, Input.mouseScrollDelta.y * Time.deltaTime * rotationSpeed, 0));
+                //heldObject.transform.Rotate(new Vector3(0, Input.mouseScrollDelta.y * Time.deltaTime * rotationSpeed, 0)); // Server only
+                float rotation = Input.mouseScrollDelta.y * Time.deltaTime * rotationSpeed;
+                heldObject.RotateObjectServerRpc(rotation);
             }
 
 
@@ -85,7 +95,7 @@ public class MousePositioning : NetworkBehaviour
     {
         if (heldObject)
         {
-            heldObject.gameObject.layer = 0;
+            heldObject.gameObject.layer = 0; // Back to original layer
             heldObject = null;
         }
     }
