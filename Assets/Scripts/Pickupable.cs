@@ -5,13 +5,8 @@ using Unity.Netcode;
 
 public class Pickupable : NetworkBehaviour
 {
-    Vector3 initialScale;
-    Vector3 newScale;
-
-    public string name = "";
+    public string pickupName = "";
     public string description = "";
-    private LTDescr delay;
-    private const float TOOLTIP_DELAY_TIME = 0.5f;
     public bool positionLocked = false; // TODO: Allow host to lock position
 
     [ServerRpc(RequireOwnership = false)]
@@ -31,18 +26,5 @@ public class Pickupable : NetworkBehaviour
     //public BoxCollider GetBoxColliderServerRpc() {
     //    return gameObject.GetComponent<BoxCollider>();
     //}
-
-    public void OnMouseEnter() {
-        delay = LeanTween.delayedCall(TOOLTIP_DELAY_TIME, () =>
-        {
-            TooltipSystem.Show(name, description);
-        });
-    }
-
-    public void OnMouseExit() { 
-        LeanTween.cancel(delay.uniqueId);
-        TooltipSystem.Hide();
-    }
-
 }
 
