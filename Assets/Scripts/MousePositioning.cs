@@ -12,12 +12,12 @@ public class MousePositioning : NetworkBehaviour
     [SerializeField] private Vector3 worldPosition;
 
     private Pickupable heldObject;
-    private float rotationSpeed = 400f; // TODO: Make this adjustable via menu
 
     private DebugText debugText;
 
     public override void OnNetworkSpawn()
     {
+        // Set up debug text window
         debugText = GameObject.Find("DebugText").GetComponent<DebugText>();
         if (debugText == null) { Debug.Log("No debugtext found!"); }
         debugText.DisplayText("It works!");
@@ -63,7 +63,7 @@ public class MousePositioning : NetworkBehaviour
 
                 // Rotate object
                 //heldObject.transform.Rotate(new Vector3(0, Input.mouseScrollDelta.y * Time.deltaTime * rotationSpeed, 0)); // Server only
-                float rotation = Input.mouseScrollDelta.y * Time.deltaTime * rotationSpeed;
+                float rotation = Input.mouseScrollDelta.y * Time.deltaTime * StaticRefs.rotationSpeed;
                 heldObject.RotateObjectServerRpc(rotation);
             }
 
