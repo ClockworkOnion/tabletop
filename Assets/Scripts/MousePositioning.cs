@@ -105,4 +105,8 @@ public class MousePositioning : NetworkBehaviour
     {
         Debug.Log("ServerRPC" + OwnerClientId);
     }
+
+    public Vector3 GetWorldPosition() {
+        return worldPosition;
+    }
 }

@@ -41,7 +41,7 @@ public class PlaceableSelect : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Before SpawnRpc");
+
         }
     }
 
@@ -82,6 +82,7 @@ public class PlaceableSelect : MonoBehaviour, IPointerEnterHandler, IPointerExit
         if (status && activePreview == null)
         {
             activePreview = Instantiate(previewPrefab).GetComponent<PlacementPreview>();
+            activePreview.toPlace = placeablePrefab;
         }
         else if (!status && activePreview != null)
         {

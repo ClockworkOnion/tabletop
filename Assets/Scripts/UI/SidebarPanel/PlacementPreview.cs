@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 /// <summary>
@@ -7,12 +8,15 @@ using UnityEngine;
 /// objects into the world. It updates the position to move along the
 /// mouse cursor and stores and returns its rotation.
 /// </summary>
-public class PlacementPreview : MonoBehaviour
+public class PlacementPreview : NetworkBehaviour
 {
     Camera mainCamera;
+    public GameObject toPlace;
+    ChatWindow chatWin;
     private void Awake()
     {
         mainCamera = Camera.main; // or just use this directly!?
+        chatWin = GameObject.Find("ChatWindow").GetComponent<ChatWindow>();
     }
 
     void Update()
@@ -27,8 +31,25 @@ public class PlacementPreview : MonoBehaviour
         // Rotate by mousewheel
         float rotation = Input.mouseScrollDelta.y * Time.deltaTime * StaticRefs.rotationSpeed;
         transform.Rotate(new Vector3(0, rotation, 0));
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Before the Rpc...");
+            SpawnPrefabServerRpc();
+        }
+
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    void SpawnPrefabServerRpc()
+    {
+        MessageClientRpc();
+    }
+
+    [ClientRpc]
+    void MessageClientRpc() {
+        Debug.Log("A client Rpc"); 
+    }
 
 
 

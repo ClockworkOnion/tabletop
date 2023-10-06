@@ -8,13 +8,23 @@ public class PlayerNetworkHandler : NetworkBehaviour
 {
 
     private ChatWindow chatWindow;
+    private MousePositioning mousePosition;
     public GameObject placeablePrefab;
 
 
     public override void OnNetworkSpawn()
     {
         chatWindow = GameObject.Find("ChatWindow").GetComponent<ChatWindow>();
+        mousePosition = GetComponent<MousePositioning>();
         chatWindow.playerNetworkHandler = this;
+    }
+
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            //SpawnObjectServerRpc(mousePosition.GetWorldPosition());
+        }
     }
 
 
@@ -36,15 +46,13 @@ public class PlayerNetworkHandler : NetworkBehaviour
     #endregion
 
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnObjectServerRpc()
+    private void SpawnObjectServerRpc(Vector3 spawnPosition)
     {
         Debug.Log("Starting to work...");
         GameObject placed = Instantiate(placeablePrefab);
-        Debug.Log("Problem with the GameObject? " + placed == null);
         NetworkObject nwo = placed.GetComponent<NetworkObject>();
-        Debug.Log("Problem with the Network object? " + nwo == null);
         nwo.Spawn();
-        //placed.transform.position = activePreview.transform.position;
+        placed.transform.position = spawnPosition;
         //placed.transform.rotation = activePreview.transform.rotation;
     }
 }

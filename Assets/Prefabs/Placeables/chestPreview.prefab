@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3451937038420596360}
+  serializedVersion: 2
   m_LocalRotation: {x: -8.7196715e-17, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0000000037252983, y: 0.19999999, z: -0.19999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5754607653719530780}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6577302657862223848
 MeshFilter:
@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 8679459846950310585}
   - component: {fileID: 6888068675802080883}
   - component: {fileID: 177697388678849216}
+  - component: {fileID: -731038361499862876}
   m_Layer: 0
   m_Name: chestPreview
   m_TagString: Untagged
@@ -109,6 +110,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4942605515076274086}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.9160848, y: 0.000000029802322, z: 0.50891393}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -116,7 +118,6 @@ Transform:
   m_Children:
   - {fileID: 5137848224057544483}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8679459846950310585
 MeshFilter:
@@ -180,3 +181,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd2d251ece76490192ca53e3083f2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toPlace: {fileID: 0}
+--- !u!114 &-731038361499862876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4942605515076274086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
