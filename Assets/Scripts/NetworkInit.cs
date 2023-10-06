@@ -14,10 +14,10 @@ public class NetworkInit : MonoBehaviour
 
     void Start()
     {
-        RegisterNetworkPrefabs();
+        //RegisterNetworkPrefabs();
     }
 
-    void RegisterNetworkPrefabs() {
+    private void RegisterNetworkPrefabs() {
         var prefabs = _networkPrefabsList.PrefabList.Select(x => x.Prefab);
         foreach (var prefab in prefabs)
         {

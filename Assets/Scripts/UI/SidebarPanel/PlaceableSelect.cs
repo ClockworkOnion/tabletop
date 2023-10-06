@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Unity.Netcode;
 
 /// <summary>
 /// On the UI button for selecting placeable items. It handles graphical highlighting
 /// as well as instantiation of a semi-transparent preview and the actual object.
 /// </summary>
-public class PlaceableSelect : NetworkBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class PlaceableSelect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public GameObject placeablePrefab;
     public GameObject previewPrefab;
@@ -42,17 +41,8 @@ public class PlaceableSelect : NetworkBehaviour, IPointerEnterHandler, IPointerE
 
         if (Input.GetMouseButtonDown(0))
         {
-            SpawnObjectServerRpc();
+            Debug.Log("Before SpawnRpc");
         }
-    }
-
-    [ServerRpc(RequireOwnership =false)]
-    private void SpawnObjectServerRpc()
-    {
-            GameObject placed = Instantiate(placeablePrefab);
-            placed.transform.position = activePreview.transform.position;
-            placed.transform.rotation = activePreview.transform.rotation;
-            placed.GetComponent<NetworkObject>().Spawn();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

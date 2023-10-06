@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.UI;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,8 @@ public class NetworkUI : MonoBehaviour
     [SerializeField] private Button hostButton;
     [SerializeField] private Button clientButton;
     [SerializeField] private Button restartButton;
+    NetworkPrefabsList _networkPrefabsList;
+
 
     private void Awake()
     {
@@ -27,7 +30,5 @@ public class NetworkUI : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         });
-
-
     }
 }
