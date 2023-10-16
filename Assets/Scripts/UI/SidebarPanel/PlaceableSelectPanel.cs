@@ -9,6 +9,7 @@ using UnityEngine;
 /// </summary>
 public class PlaceableSelectPanel : MonoBehaviour
 {
+    public static GameObject selectedObject;
 
     [SerializeField]
     private List<PlaceableSelect> placeButtons = new List<PlaceableSelect>();

@@ -81,11 +81,15 @@ public class PlaceableSelect : MonoBehaviour, IPointerEnterHandler, IPointerExit
         // Spawn the preview prefab
         if (status && activePreview == null)
         {
+            PlaceableSelectPanel.selectedObject = placeablePrefab;
             activePreview = Instantiate(previewPrefab).GetComponent<PlacementPreview>();
             activePreview.toPlace = placeablePrefab;
+            DebugText.GetInstance().DisplayText(placeablePrefab.name);
         }
         else if (!status && activePreview != null)
         {
+            PlaceableSelectPanel.selectedObject = null;
+            DebugText.GetInstance().DisplayText(placeablePrefab.name);
             Destroy(activePreview.gameObject);
         }
 

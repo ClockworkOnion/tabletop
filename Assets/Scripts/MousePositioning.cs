@@ -12,7 +12,6 @@ public class MousePositioning : NetworkBehaviour
     [SerializeField] private Vector3 worldPosition;
 
     private Pickupable heldObject;
-
     private DebugText debugText;
 
     public override void OnNetworkSpawn()
@@ -20,7 +19,7 @@ public class MousePositioning : NetworkBehaviour
         // Set up debug text window
         debugText = GameObject.Find("DebugText").GetComponent<DebugText>();
         if (debugText == null) { Debug.Log("No debugtext found!"); }
-        debugText.DisplayText("It works!");
+        debugText.DisplayText("Debug text here");
     }
 
     void Update()
@@ -51,29 +50,13 @@ public class MousePositioning : NetworkBehaviour
             if (heldObject)
             {
                 BoxCollider boxCollider = heldObject.GetComponent<BoxCollider>(); // is this OK to do on a non-owned network object?
-                //BoxCollider boxCollider = heldObject.GetBoxColliderServerRpc(); // won't work like this
                 Vector3 colliderHeight = boxCollider.bounds.size;
-
-                Vector3 floatPosition = worldPosition + Vector3.up * colliderHeight.y / 2;
-                //heldObject.transform.position = floatPosition; // Works only for the server
+                Vector3 floatPosition = worldPosition + Vector3.up * colliderHeight.y / 2; // or place the pivot at the bottom and don't touch colliderheight otherwise
                 heldObject.moveObjectServerRpc(floatPosition);
-
-
-                debugText.DisplayText("Worldposition: " + floatPosition.ToString() + "\nColliderheight: " + colliderHeight.y);
-
-                // Rotate object
-                //heldObject.transform.Rotate(new Vector3(0, Input.mouseScrollDelta.y * Time.deltaTime * rotationSpeed, 0)); // Server only
                 float rotation = Input.mouseScrollDelta.y * Time.deltaTime * StaticRefs.rotationSpeed;
                 heldObject.RotateObjectServerRpc(rotation);
+                debugText.DisplayText("Worldposition: " + floatPosition.ToString() + "\nColliderheight: " + colliderHeight.y);
             }
-
-
-            if (Input.GetMouseButton(0))
-            {
-                //Debug.Log(Input.mouseScrollDelta);
-            }
-
-
         }
         else
         {
@@ -85,10 +68,8 @@ public class MousePositioning : NetworkBehaviour
             TestServerRpc();
         }
 
-
         transform.position = worldPosition;
-        // Consider using plane raycast
-
+        // Consider using plane raycast? (But maybe not necessary after all...)
     }
 
     private void DropObject()
@@ -106,7 +87,8 @@ public class MousePositioning : NetworkBehaviour
         Debug.Log("ServerRPC" + OwnerClientId);
     }
 
-    public Vector3 GetWorldPosition() {
+    public Vector3 GetWorldPosition()
+    {
         return worldPosition;
     }
 }
