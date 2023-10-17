@@ -10,8 +10,6 @@ using UnityEngine;
 public class PlaceableSelectPanel : MonoBehaviour
 {
     public static GameObject selectedObject;
-
-    [SerializeField]
     private List<PlaceableSelect> placeButtons = new List<PlaceableSelect>();
 
     public void Subscribe(PlaceableSelect button)
@@ -23,4 +21,5 @@ public class PlaceableSelectPanel : MonoBehaviour
     {
         placeButtons.ForEach((btn) => btn.Activate(false));
     }
+
 }

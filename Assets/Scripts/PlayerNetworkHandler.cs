@@ -10,6 +10,8 @@ public class PlayerNetworkHandler : NetworkBehaviour
     private MousePositioning mousePosition;
     public GameObject placeablePrefab;
 
+    public GameObject chestPrefab;
+
     public override void OnNetworkSpawn()
     {
         chatWindow = GameObject.Find("ChatWindow").GetComponent<ChatWindow>();
@@ -30,12 +32,13 @@ public class PlayerNetworkHandler : NetworkBehaviour
             Instead, PlayerNetworkHandler must poll local UI elements for which button is active.
             */
 
+            bool hoveringUI = UIManager.GetInstance().IsHoveringUI();
             placeablePrefab = PlaceableSelectPanel.selectedObject;
-            if (placeablePrefab != null) SpawnObjectServerRpc(mousePosition.GetWorldPosition());
+            if (!hoveringUI && placeablePrefab != null) SpawnObjectServerRpc(mousePosition.GetWorldPosition(), new Quaternion(), placeablePrefab.name); // TODO: Pass along rotation
         }
     }
 
-    #region chat window
+    #region chat window fold
     // Receive a string from the local chat window and pass it along
     // to all clients.
 
@@ -53,18 +56,17 @@ public class PlayerNetworkHandler : NetworkBehaviour
     #endregion
 
     /*
-    Note that adressing class fields in here, they will always have the value
-    of the server! Never that of the client. This is why some things must be
-    passed along as parameters.
-
-    Perhaps make a (static) list of creatable objects, with references to their prefabs
-    and pass the integer along that points to a position in the list. (Or a map...)
+    Remember that adressing class fields in here, they will always have the value
+    of the server, never that of the client. This is why some things must be
+    passed along as parameters (like the prefabName).
     */
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnObjectServerRpc(Vector3 spawnPosition)
+    private void SpawnObjectServerRpc(Vector3 spawnPosition, Quaternion spawnRotation, string prefabName)
     {
-        // GameObject placed = Instantiate(placeablePrefab); // this is ALWAYS the placeablePrefab on the server
-
-
+        Debug.Log("Trying to spawn a " + prefabName);
+        GameObject placed = Instantiate(UIManager.GetInstance().GetPrefabByName(prefabName)); // always the placeablePrefab on the server
+        placed.GetComponent<NetworkObject>().Spawn();
+        placed.transform.position = spawnPosition;
+        placed.transform.rotation = spawnRotation;
     }
 }

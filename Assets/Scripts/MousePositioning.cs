@@ -51,7 +51,7 @@ public class MousePositioning : NetworkBehaviour
             {
                 BoxCollider boxCollider = heldObject.GetComponent<BoxCollider>(); // is this OK to do on a non-owned network object?
                 Vector3 colliderHeight = boxCollider.bounds.size;
-                Vector3 floatPosition = worldPosition + Vector3.up * colliderHeight.y / 2; // or place the pivot at the bottom and don't touch colliderheight otherwise
+                Vector3 floatPosition = worldPosition; // ' + Vector3.up * colliderHeight.y / 2; // or place the pivot at the bottom and don't touch colliderheight otherwise
                 heldObject.moveObjectServerRpc(floatPosition);
                 float rotation = Input.mouseScrollDelta.y * Time.deltaTime * StaticRefs.rotationSpeed;
                 heldObject.RotateObjectServerRpc(rotation);

@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class PrefabDict
 {
-    public Dictionary<string, GameObject> objects = new Dictionary<string, GameObject>();
+    //public string prefabName;
+    public GameObject prefabObject;
+    public GameObject prefabPreview;
 }
 

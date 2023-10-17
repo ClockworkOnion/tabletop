@@ -17,6 +17,11 @@ public class NetworkInit : MonoBehaviour
         //RegisterNetworkPrefabs();
     }
 
+    /// <summary>
+    /// What was that for? I think I tried something and it's no longer necessary
+    /// Something because the network prefabs list was messed up in the old
+    /// editor version
+    /// </summary>
     private void RegisterNetworkPrefabs() {
         var prefabs = _networkPrefabsList.PrefabList.Select(x => x.Prefab);
         foreach (var prefab in prefabs)

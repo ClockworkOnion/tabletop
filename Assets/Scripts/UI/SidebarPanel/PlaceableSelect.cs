@@ -16,6 +16,7 @@ public class PlaceableSelect : MonoBehaviour, IPointerEnterHandler, IPointerExit
     private Image btnImage;
     private bool isActive = false;
     private PlaceableSelectPanel placeableSelectPanel;
+    public string prefabName; // Must be filled in inspector!
 
     private Color activeColor = StaticRefs.activeColor;
     private Color defaultColor = StaticRefs.defaultColor;

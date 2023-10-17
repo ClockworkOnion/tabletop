@@ -11,8 +11,6 @@ public class NetworkUI : MonoBehaviour
     [SerializeField] private Button hostButton;
     [SerializeField] private Button clientButton;
     [SerializeField] private Button restartButton;
-    NetworkPrefabsList _networkPrefabsList;
-
 
     private void Awake()
     {

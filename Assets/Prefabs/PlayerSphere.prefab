@@ -186,3 +186,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeablePrefab: {fileID: 1720670262656047863, guid: 70bbb72c7e65b4c54b147f2934d9052e, type: 3}
+  chestPrefab: {fileID: 5628086041101857627, guid: a234391a96b084885a878d9971766813, type: 3}
