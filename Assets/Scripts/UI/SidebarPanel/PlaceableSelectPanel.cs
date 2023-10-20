@@ -12,9 +12,9 @@ using UnityEngine;
 public class PlaceableSelectPanel : MonoBehaviour
 {
     public static GameObject selectedObject;
-    private List<PlaceableSelect> placeButtons = new List<PlaceableSelect>();
+    private List<PanelButton> placeButtons = new List<PanelButton>();
 
-    public void Subscribe(PlaceableSelect button)
+    public void Subscribe(PanelButton button)
     {
         placeButtons.Add(button);
     }
