@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    float cameraMoveSpeed = 40f;
+    float cameraMoveSpeed = 20f;
     Vector3 mouseLastPosition = new Vector3(0, 0, 0);
     Vector3 initialCamPosition;
 
     // rotation
-    public float sensitivity = 10f;
+    public float sensitivity = 6f;
     public float maxYAngle = 80f;
     private Vector2 currentRotation;
 
