@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        debugText.DisplayText("Hovered UI Elements: " + hoveredUIElements.ToString());
+        //debugText.DisplayText("Hovered UI Elements: " + hoveredUIElements.ToString());
     }
 
     public static UIManager GetInstance() {

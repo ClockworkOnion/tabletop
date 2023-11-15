@@ -7,18 +7,20 @@ public class Pickupable : NetworkBehaviour
 {
     public string pickupName = "";
     public string description = "";
-    public bool positionLocked = false; // TODO: Allow host to lock position
+    public bool positionLocked = false; // TODO: Allow host to lock position (context menu)
 
     [ServerRpc(RequireOwnership = false)]
     public void moveObjectServerRpc(Vector3 newPos)
     {
-        transform.position = newPos;
+        if (!positionLocked)
+			transform.position = newPos;
     }
 
     [ServerRpc(RequireOwnership = false)]
     public void RotateObjectServerRpc(float rotation)
     {
-        transform.Rotate(new Vector3(0, rotation, 0));
+        if (!positionLocked)
+			transform.Rotate(new Vector3(0, rotation, 0));
     }
 
     // Won't work because the boxcollider is a reference object
@@ -26,5 +28,11 @@ public class Pickupable : NetworkBehaviour
     //public BoxCollider GetBoxColliderServerRpc() {
     //    return gameObject.GetComponent<BoxCollider>();
     //}
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DeleteObjectServerRpc()
+    {
+        Destroy(gameObject);
+    }
 }
 

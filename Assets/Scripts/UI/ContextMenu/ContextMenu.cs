@@ -1,12 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+using TMPro;
 
 public class ContextMenu : MonoBehaviour
 {
     public ContextMenuTarget target { get; private set; }
+    public Button deleteButton;
+    public bool hoveringTarget = false;
     private RectTransform rectTransform;
     private MenuGraphics menuGraphics;
+
+
 
     private void Awake()
     {
@@ -20,26 +27,33 @@ public class ContextMenu : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(1) && target != null)
+        if (Input.GetMouseButtonDown(1) && target != null && hoveringTarget)
         {
             SetPosition();
             SetContents();
         }
 
-        //if (menuGraphics.isMouserPointerInside)
-
+        if (!menuGraphics.isMouserPointerInside && Input.GetMouseButtonDown(0))
+        {
+            HideMenu();
+        }
     }
-
-
 
     public void SetContents()
     {
-        // If there's a pickupable component (and there should be),
-        // its name becomes the title for the context menu
         Pickupable current = target.GetComponent<Pickupable>();
-        if (current) {
+        if (current)
+        {
             menuGraphics.SetHeader(current.pickupName);
-		}
+
+            deleteButton.onClick.RemoveAllListeners();
+            deleteButton.onClick.AddListener(OnDeleteClick);
+        }
+    }
+
+    private void OnDeleteClick()
+    {
+        target.GetComponent<Pickupable>().DeleteObjectServerRpc();
     }
 
     private void SetPosition()

@@ -13,6 +13,7 @@ public class MousePositioning : NetworkBehaviour
 
     private Pickupable heldObject;
     private DebugText debugText;
+    private CameraControl camControl;
 
     public override void OnNetworkSpawn()
     {
@@ -20,6 +21,9 @@ public class MousePositioning : NetworkBehaviour
         debugText = GameObject.Find("DebugText").GetComponent<DebugText>();
         if (debugText == null) { Debug.Log("No debugtext found!"); }
         debugText.DisplayText("Debug text here");
+
+        // Connect to local camera controller
+        camControl = Camera.main.GetComponent<CameraControl>();
     }
 
     void Update()
@@ -36,6 +40,7 @@ public class MousePositioning : NetworkBehaviour
                 Pickupable target = hitData.transform.GetComponent<Pickupable>();
                 if (target)
                 {
+                    camControl.cameraLocked = true;
                     heldObject = target;
                     heldObject.gameObject.layer = 1 << 1; // Layer "ignore raycast", also prevents other players from trying to grab it.
                 }
@@ -72,8 +77,14 @@ public class MousePositioning : NetworkBehaviour
         // Consider using plane raycast? (But maybe not necessary after all...)
     }
 
+    public bool IsHoldingObject()
+    {
+        return heldObject ? true : false;
+    }
+
     private void DropObject()
     {
+        camControl.cameraLocked = false;
         if (heldObject)
         {
             heldObject.gameObject.layer = 0; // Back to original layer

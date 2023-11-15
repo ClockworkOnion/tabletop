@@ -63,7 +63,6 @@ public class PlayerNetworkHandler : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void SpawnObjectServerRpc(Vector3 spawnPosition, Quaternion spawnRotation, string prefabName)
     {
-        Debug.Log("Trying to spawn a " + prefabName);
         GameObject placed = Instantiate(UIManager.GetInstance().GetPrefabByName(prefabName)); // always the placeablePrefab on the server
         placed.GetComponent<NetworkObject>().Spawn();
         placed.transform.position = spawnPosition;
