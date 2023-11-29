@@ -34,5 +34,12 @@ public class Pickupable : NetworkBehaviour
     {
         Destroy(gameObject);
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SetPositionLockServerRpc(bool locked)
+    {
+        positionLocked = locked;
+    }
+
 }
 

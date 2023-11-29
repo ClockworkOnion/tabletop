@@ -9,9 +9,12 @@ public class ContextMenu : MonoBehaviour
 {
     public ContextMenuTarget target { get; private set; }
     public Button deleteButton;
+    public Toggle positionLockToggle; 
     public bool hoveringTarget = false;
     private RectTransform rectTransform;
     private MenuGraphics menuGraphics;
+
+    public ContextMenuTarget hoveredToken;
 
 
 
@@ -27,8 +30,9 @@ public class ContextMenu : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(1) && target != null && hoveringTarget)
+        if (Input.GetMouseButtonDown(1) && hoveringTarget)
         {
+            target = hoveredToken;
             SetPosition();
             SetContents();
         }
@@ -48,12 +52,19 @@ public class ContextMenu : MonoBehaviour
 
             deleteButton.onClick.RemoveAllListeners();
             deleteButton.onClick.AddListener(OnDeleteClick);
+
+            positionLockToggle.isOn = current.positionLocked;
+            positionLockToggle.onValueChanged.AddListener(OnTogglePositionLock);
         }
     }
 
     private void OnDeleteClick()
     {
         target.GetComponent<Pickupable>().DeleteObjectServerRpc();
+    }
+
+    private void OnTogglePositionLock(bool onOrOff) {
+        target.GetComponent<Pickupable>().SetPositionLockServerRpc(onOrOff);
     }
 
     private void SetPosition()

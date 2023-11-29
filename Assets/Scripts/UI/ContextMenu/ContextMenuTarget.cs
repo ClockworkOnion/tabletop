@@ -18,15 +18,17 @@ public class ContextMenuTarget : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        contextMenu.SetTarget(this);
-        contextMenu.HideMenu();
+        //contextMenu.SetTarget(this);
+        //contextMenu.HideMenu();
         contextMenu.hoveringTarget = true;
+        contextMenu.hoveredToken = this;
     }
 
     private void OnMouseExit()
     {
         //contextMenu.SetTarget(null);
         contextMenu.hoveringTarget = false;
+        contextMenu.hoveredToken = null;
     }
 
 } 
