@@ -10,8 +10,6 @@ public class PlayerNetworkHandler : NetworkBehaviour
     private MousePositioning mousePosition;
     public GameObject placeablePrefab;
 
-    public GameObject chestPrefab;
-
     public override void OnNetworkSpawn()
     {
         chatWindow = GameObject.Find("ChatWindow").GetComponent<ChatWindow>();

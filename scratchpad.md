@@ -26,6 +26,7 @@ example: Hearthstone clicking on stuff on the table, Diablo clicking on the cows
 - Game master
 - Token (anything inside the virtual environment that represents a physical object, e.g. playpieces, dice, cards ...)
 - Dice notation
+- "roll" such as "attack roll"
 
 
 # Existing virtual tabletops
@@ -47,8 +48,7 @@ These activities bear no influence on the game itself, but they are a central pa
 
 While only a Japanese language version exists, the interface is simple enough to use at a basic level even without the ability to read Japanese text. Besides camera movement and the positioning and rotation of tokens, users can create new token or dice, create and edit text boxes that exist within the coordinate system of the environment.
 In addition, each token has a number of attributes that can be freely edited to store game related information such as points or currency.
-What's missing is a way to combine the stored attributes using formulas, or a way to automate common calculations, such as attack rolls in an RPG.
-
+What's missing is a way to combine the stored attributes using formulas, or a way to automate common calculations, such as attack rolls in an RPG. Thus these rolls, often involving three of more dice, must all be done by rolling individual dice and performing arithmetics outside of Udonarium. Although true to the nature of a physical tabletop game, this method is time consuming and relatively error prone.
 
 ### Advantages:
 - Easy and intuitive to use

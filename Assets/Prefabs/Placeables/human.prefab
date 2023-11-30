@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8498348715917463053}
   - component: {fileID: 5025166590019551964}
   - component: {fileID: 7771949818448212094}
+  - component: {fileID: 506639017858757383}
   m_Layer: 0
   m_Name: human
   m_TagString: Untagged
@@ -102,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6303e73f5c0ac429e90c854720532681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupName: 
+  pickupName: Human
   description: 
   positionLocked: 0
 --- !u!114 &5025166590019551964
@@ -155,6 +156,18 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &506639017858757383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7473678527205927734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb95db08a8b3b4a85ae0a4580a959c76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1656326707694847413
 PrefabInstance:
   m_ObjectHideFlags: 0

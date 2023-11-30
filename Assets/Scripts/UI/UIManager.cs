@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField]
     private int hoveredUIElements = 0;
     private DebugText debugText;
     private static UIManager instance;

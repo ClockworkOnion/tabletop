@@ -9,14 +9,16 @@ public class ContextMenu : MonoBehaviour
 {
     public ContextMenuTarget target { get; private set; }
     public Button deleteButton;
-    public Toggle positionLockToggle; 
+    public Toggle positionLockToggle;
     public bool hoveringTarget = false;
     private RectTransform rectTransform;
     private MenuGraphics menuGraphics;
 
     public ContextMenuTarget hoveredToken;
 
-
+    [Header("Prefabs")]
+    public GameObject attachFormulaButtonPrefab;
+    private GameObject formulaBtnRef;
 
     private void Awake()
     {
@@ -56,6 +58,13 @@ public class ContextMenu : MonoBehaviour
             positionLockToggle.isOn = current.positionLocked;
             positionLockToggle.onValueChanged.AddListener(OnTogglePositionLock);
         }
+
+        if (!target.GetComponent<Actor>() && !formulaBtnRef)
+        {
+            formulaBtnRef = Instantiate(attachFormulaButtonPrefab);
+            formulaBtnRef.transform.SetParent(menuGraphics.transform);
+            formulaBtnRef.GetComponent<AttachFormulaButton>().SetFormulaTarget(current.gameObject, this);
+        }
     }
 
     private void OnDeleteClick()
@@ -63,7 +72,8 @@ public class ContextMenu : MonoBehaviour
         target.GetComponent<Pickupable>().DeleteObjectServerRpc();
     }
 
-    private void OnTogglePositionLock(bool onOrOff) {
+    private void OnTogglePositionLock(bool onOrOff)
+    {
         target.GetComponent<Pickupable>().SetPositionLockServerRpc(onOrOff);
     }
 

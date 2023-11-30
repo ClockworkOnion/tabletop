@@ -5,15 +5,6 @@ using UnityEngine;
 
 public class FileReaderWriter : MonoBehaviour
 {
-    void Start()
-    {
-
-        string path = Application.persistentDataPath; // or any other path
-        //string path = "/Users/larshappel/Documents/";
-
-        GetLinesFromFile("example2.txt").ForEach((x) => Debug.Log(x));
-    }
-
     public List<string> GetLinesFromFile(string fileName)
     {
         List<string> textLines = new List<string>();

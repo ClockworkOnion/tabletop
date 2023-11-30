@@ -14,6 +14,7 @@ public class MousePositioning : NetworkBehaviour
     private Pickupable heldObject;
     private DebugText debugText;
     private CameraControl camControl;
+    private PlayerNetworkHandler playerNetworkHandler;
 
     public override void OnNetworkSpawn()
     {
@@ -24,6 +25,8 @@ public class MousePositioning : NetworkBehaviour
 
         // Connect to local camera controller
         camControl = Camera.main.GetComponent<CameraControl>();
+
+        playerNetworkHandler = GetComponent<PlayerNetworkHandler>();
     }
 
     void Update()
@@ -33,6 +36,9 @@ public class MousePositioning : NetworkBehaviour
         if (Physics.Raycast(ray, out RaycastHit hitData))
         {
             worldPosition = hitData.point;
+
+            if (hitData.transform.GetComponent<DoubleClickListener>() is DoubleClickListener diceRoller)
+                diceRoller.SetNetworkHandler(playerNetworkHandler);
 
             // Handle click and release of the left mouse button
             if (Input.GetMouseButtonDown(0))
