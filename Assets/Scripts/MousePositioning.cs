@@ -37,6 +37,7 @@ public class MousePositioning : NetworkBehaviour
         {
             worldPosition = hitData.point;
 
+            // Pass PlayerNetworkHandler to dice (or other doubleclicked things)
             if (hitData.transform.GetComponent<DoubleClickListener>() is DoubleClickListener diceRoller)
                 diceRoller.SetNetworkHandler(playerNetworkHandler);
 

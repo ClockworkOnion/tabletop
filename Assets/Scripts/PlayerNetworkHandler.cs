@@ -36,10 +36,8 @@ public class PlayerNetworkHandler : NetworkBehaviour
         }
     }
 
-    #region chat window fold
     // Receive a string from the local chat window and pass it along
     // to all clients.
-
     [ClientRpc]
     public void DistributeMsgClientRpc(string msg)
     {
@@ -51,7 +49,6 @@ public class PlayerNetworkHandler : NetworkBehaviour
     {
         DistributeMsgClientRpc(msg);
     }
-    #endregion
 
     /*
     Remember that adressing class fields in here, they will always have the value

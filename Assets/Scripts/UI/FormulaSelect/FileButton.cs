@@ -20,6 +20,7 @@ public class FileButton : MonoBehaviour, IPointerClickHandler
         fileReader = GetComponent<FileReaderWriter>();
     }
 
+    // Practically a constructor to pass along data... Instantiate() doesn't do it otherwise
     public void SetData(string name, GameObject target, FormulaFileSelector _parent) {
         fileName = name;
         targetObject = target;
@@ -28,10 +29,13 @@ public class FileButton : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log(fileName);
-        Actor newActor = targetObject.AddComponent(typeof(Actor)) as Actor;
         List<string> lines = fileReader.GetLinesFromFile(fileName);
-        newActor.contents = lines[0];
+
+        // Create actor and pass along data from the file
+        Actor newActor = targetObject.AddComponent(typeof(Actor)) as Actor;
+        newActor.ParseFormula(lines);
+
+        // Clean up
         TooltipSystem.Hide();
         Destroy(parent.gameObject);
     }

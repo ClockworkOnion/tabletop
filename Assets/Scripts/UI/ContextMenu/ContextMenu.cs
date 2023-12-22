@@ -16,9 +16,13 @@ public class ContextMenu : MonoBehaviour
 
     public ContextMenuTarget hoveredToken;
 
+    public List<GameObject> menuItemsRefs = new(); // Remember instantiated prefabs for later deletion
+
+    private GameObject formulaBtnRef; // Reference to the instantiated prefab
     [Header("Prefabs")]
     public GameObject attachFormulaButtonPrefab;
-    private GameObject formulaBtnRef;
+    public GameObject attributeTextPrefab;
+    public GameObject formulaTriggerBtnPrefab;
 
     private void Awake()
     {
@@ -48,6 +52,9 @@ public class ContextMenu : MonoBehaviour
     public void SetContents()
     {
         Pickupable current = target.GetComponent<Pickupable>();
+        ClearMenu();
+
+        // Basics: Delete & Lock position
         if (current)
         {
             menuGraphics.SetHeader(current.pickupName);
@@ -59,12 +66,46 @@ public class ContextMenu : MonoBehaviour
             positionLockToggle.onValueChanged.AddListener(OnTogglePositionLock);
         }
 
-        if (!target.GetComponent<Actor>() && !formulaBtnRef)
+        // Attach formula if none is attached
+        if (!target.GetComponent<Actor>())
         {
             formulaBtnRef = Instantiate(attachFormulaButtonPrefab);
             formulaBtnRef.transform.SetParent(menuGraphics.transform);
             formulaBtnRef.GetComponent<AttachFormulaButton>().SetFormulaTarget(current.gameObject, this);
+            menuItemsRefs.Add(formulaBtnRef);
         }
+
+        if (target.GetComponent<Actor>() is Actor actor) // = Formula already attached
+        {
+
+            // Display attributes from Dictionary
+            foreach (KeyValuePair<string, float> attribute in actor.attributes)
+            {
+                GameObject attribDisplay = Instantiate(attributeTextPrefab);
+                attribDisplay.GetComponent<TextMeshProUGUI>().SetText(attribute.Key + " : " + attribute.Value);
+                attribDisplay.transform.SetParent(menuGraphics.transform);
+                menuItemsRefs.Add(attribDisplay);
+            }
+
+            // Display formulas from Dictionary
+            foreach (KeyValuePair<string, List<string>> attribute in actor.formulas)
+            {
+                GameObject formulaTrigger = Instantiate(formulaTriggerBtnPrefab);
+                formulaTrigger.transform.SetParent(menuGraphics.transform);
+                formulaTrigger.GetComponent<FormulaTrigger>().SetData(attribute, actor);
+                menuItemsRefs.Add(formulaTrigger);
+            }
+        }
+
+    }
+
+    private void ClearMenu()
+    {
+        foreach (GameObject item in menuItemsRefs)
+        {
+            Destroy(item);
+        }
+        menuItemsRefs = new();
     }
 
     private void OnDeleteClick()

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class DiceRoller : MonoBehaviour
 {
     public int sideCount = 6;
-    public RollResultEvent resultEvent;
+    public RollResultEvent resultEvent = new RollResultEvent();
     private PlayerNetworkHandler networkHandler;
 
     void Start()
