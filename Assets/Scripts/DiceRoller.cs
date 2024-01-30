@@ -24,8 +24,6 @@ public class DiceRoller : MonoBehaviour
         List<FetchDiceSelector> diceListeners = GameObject.Find("FetchlistPanel").GetComponentsInChildren<FetchDiceSelector>().Cast<FetchDiceSelector>().ToList();
         diceListeners.ForEach((die) => die.ListenToRoll(sideCount, rollResult: result));
     }
-
-
 }
 
 // An easy way to pass value through events. I'll leave this here for now, maybe delete later if it goes unused.

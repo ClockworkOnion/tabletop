@@ -12,6 +12,8 @@ public class MousePositioning : NetworkBehaviour
     [SerializeField] private Vector3 worldPosition;
 
     private Pickupable heldObject;
+    private Vector3 heldObjectOffset; // to prevent object from "jumping" to the mouse
+
     private DebugText debugText;
     private CameraControl camControl;
     private PlayerNetworkHandler playerNetworkHandler;
@@ -50,6 +52,13 @@ public class MousePositioning : NetworkBehaviour
                     camControl.cameraLocked = true;
                     heldObject = target;
                     heldObject.gameObject.layer = 1 << 1; // Layer "ignore raycast", also prevents other players from trying to grab it.
+
+                    // Update world position, now that heldObject ignores raycast.
+                    Ray newRay = Camera.main.ScreenPointToRay(screenPosition);
+                    if (Physics.Raycast(newRay, out RaycastHit newHitData))
+                        worldPosition = newHitData.point;
+
+                    heldObjectOffset = target.transform.position - worldPosition;
                 }
             }
 
@@ -64,10 +73,16 @@ public class MousePositioning : NetworkBehaviour
                 BoxCollider boxCollider = heldObject.GetComponent<BoxCollider>(); // is this OK to do on a non-owned network object?
                 Vector3 colliderHeight = boxCollider.bounds.size;
                 Vector3 floatPosition = worldPosition; // ' + Vector3.up * colliderHeight.y / 2; // or place the pivot at the bottom and don't touch colliderheight otherwise
-                heldObject.moveObjectServerRpc(floatPosition);
+                heldObject.moveObjectServerRpc(floatPosition + heldObjectOffset);
                 float rotation = Input.mouseScrollDelta.y * Time.deltaTime * StaticRefs.rotationSpeed;
                 heldObject.RotateObjectServerRpc(rotation);
                 debugText.DisplayText("Worldposition: " + floatPosition.ToString() + "\nColliderheight: " + colliderHeight.y);
+
+                // Change offset by cursor
+                if (Input.GetKey(KeyCode.DownArrow))
+                    heldObjectOffset = new Vector3(heldObjectOffset.x, heldObjectOffset.y - .01f, heldObjectOffset.z);
+                if (Input.GetKey(KeyCode.UpArrow))
+                    heldObjectOffset = new Vector3(heldObjectOffset.x, heldObjectOffset.y + .01f, heldObjectOffset.z);
             }
         }
         else

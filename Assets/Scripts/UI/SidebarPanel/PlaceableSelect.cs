@@ -24,7 +24,8 @@ public class PlaceableSelect : PanelButton
     public void Update()
     {
         if (!isActive) return;
-        if (Input.GetMouseButtonDown(1)) Activate(false);
+        if (Input.GetMouseButtonDown(1)) 
+	        Activate(false);
     }
 
     /// <summary>

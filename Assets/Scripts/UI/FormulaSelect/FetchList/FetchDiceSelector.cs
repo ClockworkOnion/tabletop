@@ -47,7 +47,6 @@ public class FetchDiceSelector : MonoBehaviour, FetchListSelector
         label.text = newText;
     }
 
-
     public void ToFetch(string fetchString)
     {
         rollToListenFor = fetchString;

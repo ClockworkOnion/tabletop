@@ -34,4 +34,7 @@ public class PartnerTokenSelector : MonoBehaviour, FetchListSelector
     public string GetLabel() {
         return "@" + attributeToFetch;
     }
+
+    public void SelectPartner() { 
+    }
 }

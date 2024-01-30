@@ -36,6 +36,10 @@ public class PlayerNetworkHandler : NetworkBehaviour
         }
     }
 
+    public void SpawnToken(Vector3 position, Quaternion rotation, string prefabName) {
+        SpawnObjectServerRpc(position, rotation, prefabName);
+    }
+
     // Receive a string from the local chat window and pass it along
     // to all clients.
     [ClientRpc]
