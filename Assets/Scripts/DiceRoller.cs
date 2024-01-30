@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 public class DiceRoller : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class DiceRoller : MonoBehaviour
         int result = Random.Range(1, sideCount + 1);
         clickingPlayer.HandleChatMsgServerRpc("Roll: " + result.ToString() + " by " + clickingPlayer.OwnerClientId.ToString());
         resultEvent.Invoke(clickingPlayer, result);
+
+        List<FetchDiceSelector> diceListeners = GameObject.Find("FetchlistPanel").GetComponentsInChildren<FetchDiceSelector>().Cast<FetchDiceSelector>().ToList();
+        diceListeners.ForEach((die) => die.ListenToRoll(sideCount, rollResult: result));
     }
 
 
