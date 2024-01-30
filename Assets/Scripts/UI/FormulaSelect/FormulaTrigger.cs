@@ -30,6 +30,8 @@ public class FormulaTrigger : MonoBehaviour
         // TODO Find a  way to get reference to the clicking player (PlayerNetworkHandler) here and pass it along. Needed for the Chat window
         // IDEA: Right click listener, like the DoubleClickListener, catches the PlayerNetworkHandler as the context menu is created.
         // The PlayerNetworkHandler can then be passed along to the respective buttons.
+        // For now, any player will do just to perform the evaluation. This way however, the performing player's name can't be
+        // attached to the result. Mainly a cosmetic issue?
         PlayerNetworkHandler anyPlayer = GameObject.Find("PlayerSphere(Clone)").GetComponent<PlayerNetworkHandler>();
         evaluator.Evaluate(formula, formulaName, actor, anyPlayer);
     }
