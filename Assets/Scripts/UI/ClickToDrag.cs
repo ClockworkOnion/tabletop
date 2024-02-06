@@ -3,33 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ClickToDrag : MonoBehaviour
+public class ClickToDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public GameObject toDrag;
     public Canvas canvas;
 
-    // Start is called before the first frame update
-    void Start()
+    private Vector2 offset = new Vector2(0,0);
+
+    public void OnDrag(PointerEventData eventData)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    public void DragHandler(BaseEventData data)
-    {
-        PointerEventData pointerData = (PointerEventData)data;
-
         Vector2 position;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             (RectTransform)canvas.transform,
-            pointerData.position,
+            eventData.position,
             canvas.worldCamera,
             out position);
 
-        toDrag.transform.position = canvas.transform.TransformPoint(position);
+        toDrag.transform.position = canvas.transform.TransformPoint(position) + (Vector3)offset;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        offset =  toDrag.transform.position - Input.mousePosition;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
     }
 }

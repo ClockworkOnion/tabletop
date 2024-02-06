@@ -6,11 +6,14 @@ using UnityEngine.Events;
 public class DoubleClickListener : MonoBehaviour
 {
     private float doubleClickTimer = 0f;
+
     public ClickEvent doubleClicked;
+    public ClickEvent onceClicked;
     public PlayerNetworkHandler clickingPlayer;
 
     void Update()
     {
+
         if (doubleClickTimer > 0)
         {
             doubleClickTimer -= Time.deltaTime;
@@ -19,12 +22,15 @@ public class DoubleClickListener : MonoBehaviour
 
     public void OnMouseDown()
     {
+        // Single click
+        onceClicked.Invoke(clickingPlayer);
+
+        // Double click
         if (doubleClickTimer <= 0)
         {
             doubleClickTimer = 0.5f;
             return;
         }
-        Debug.Log(clickingPlayer);
         doubleClicked.Invoke(clickingPlayer);
     }
 
@@ -40,4 +46,4 @@ public class DoubleClickListener : MonoBehaviour
 }
 
 [System.Serializable]
-public class ClickEvent : UnityEvent<PlayerNetworkHandler> { } 
+public class ClickEvent : UnityEvent<PlayerNetworkHandler> { }

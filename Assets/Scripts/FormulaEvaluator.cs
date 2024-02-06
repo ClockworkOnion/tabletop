@@ -116,7 +116,8 @@ public class FormulaEvaluator : MonoBehaviour
         switch (item[0])
         {
             case '@':
-                CreateEntry(selectActorPartnerRow);
+                PartnerTokenSelector newRow = CreateEntry(selectActorPartnerRow) as PartnerTokenSelector;
+                newRow.mousePosition = requestingPlayer.GetComponent<MousePositioning>();
                 break;
             case '$':
                 CreateEntry(enterValueRow);
@@ -129,13 +130,14 @@ public class FormulaEvaluator : MonoBehaviour
                 break;
         }
 
-        void CreateEntry(GameObject toCreate)
+        FetchListSelector CreateEntry(GameObject toCreate)
         {
             GameObject newEntry = Instantiate(toCreate);
             newEntry.transform.SetParent(fetchListPanel.transform);
             FetchListSelector newSelector = newEntry.GetComponent<FetchListSelector>();
             newSelector.ToFetch(item[1..^0]);
             selectors.Add(newSelector);
+            return newSelector;
         }
     }
 
