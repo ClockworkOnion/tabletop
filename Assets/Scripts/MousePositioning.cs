@@ -119,6 +119,7 @@ public class MousePositioning : NetworkBehaviour
         {
             heldObject.gameObject.layer = 0; // Back to original layer
             heldObject = null;
+            Jukebox.instance.OnDropToken();
         }
     }
 

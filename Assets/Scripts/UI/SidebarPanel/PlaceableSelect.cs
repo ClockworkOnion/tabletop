@@ -36,6 +36,7 @@ public class PlaceableSelect : PanelButton
     /// <param name="status">Clicked, or not clicked?</param>
     public override void Activate(bool status)
     {
+        Jukebox.instance.OnLightButtonClick();
         isActive = status;
         btnImage.color = (status) ? hoverActiveColor : defaultColor;
 

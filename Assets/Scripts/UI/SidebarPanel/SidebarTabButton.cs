@@ -36,6 +36,7 @@ public class SidebarTabButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Jukebox.instance.OnButtonClick();
         if (isActive) return;
 
         // Disable all panels, but activate this one again.

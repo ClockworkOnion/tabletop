@@ -124,6 +124,11 @@ public class PhysicalDice : NetworkBehaviour
         rollDieServerRpc(rollDirect);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Jukebox.instance.OnDiceCollision();
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void rollDieServerRpc(Vector3 direction)
     {
