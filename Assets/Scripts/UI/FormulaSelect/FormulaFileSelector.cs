@@ -19,6 +19,9 @@ public class FormulaFileSelector : MonoBehaviour
         // Create a button for each file
         foreach (string fileName in fileList)
         {
+            if (!fileName.EndsWith("txt"))
+                continue;
+
             GameObject newObject = Instantiate(fileSelectPrefab);
             newObject.transform.SetParent(transform);
             FileButton newButton = newObject.GetComponent<FileButton>();
