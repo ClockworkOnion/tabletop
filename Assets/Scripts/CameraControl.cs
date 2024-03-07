@@ -103,4 +103,21 @@ public class CameraControl : MonoBehaviour
         DebugText.GetInstance().DisplayText("x: " + currentRotation.x.ToString() + " y: " + currentRotation.y.ToString());
     }
 
+    public void MoveTo(Vector3 newPosition) {
+        transform.position = newPosition;
+    }
+
+    public void Move(Vector3 displacement)
+    {
+        transform.position += optionsMenu.GetPanSensitiviy() * Time.deltaTime * displacement;
+    }
+
+    public void MovePivot(Vector3 displacement) { 
+        RaycastHit ray = SetPivot();
+        float panFactor = optionsMenu.GetPanSensitiviy();
+        transform.Translate(displacement * cameraMoveSpeed * panFactor * Time.deltaTime);
+        transform.LookAt(ray.point);
+        StoreRotation();
+    }
+
 }

@@ -21,8 +21,10 @@ public class ContextMenu : MonoBehaviour
     private GameObject formulaBtnRef; // Reference to the instantiated prefab
     [Header("Prefabs")]
     public GameObject attachFormulaButtonPrefab;
+    public GameObject genericButton;
     public GameObject attributeTextPrefab;
     public GameObject formulaTriggerBtnPrefab;
+    public GameObject textureFileSelectMenu;
 
     private void Awake()
     {
@@ -83,6 +85,7 @@ public class ContextMenu : MonoBehaviour
             {
                 GameObject attribDisplay = Instantiate(attributeTextPrefab);
                 attribDisplay.GetComponent<TextMeshProUGUI>().SetText(attribute.Key + " : " + attribute.Value);
+                attribDisplay.GetComponent<AttributeText>().SetNameAndActor(actor, attribute.Key);
                 attribDisplay.transform.SetParent(menuGraphics.transform);
                 menuItemsRefs.Add(attribDisplay);
             }
@@ -95,6 +98,25 @@ public class ContextMenu : MonoBehaviour
                 formulaTrigger.GetComponent<FormulaTrigger>().SetData(attribute, actor);
                 menuItemsRefs.Add(formulaTrigger);
             }
+        }
+
+        if (target.GetComponent<TextureLoader>() is TextureLoader texLoader)
+        {
+            GameObject textureLoadButton = Instantiate(genericButton);
+            textureLoadButton.GetComponentInChildren<TextMeshProUGUI>().SetText("Load image");
+            textureLoadButton.transform.SetParent(menuGraphics.transform);
+            textureLoadButton.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                GameObject newWindow = Instantiate(textureFileSelectMenu);
+                newWindow.transform.SetParent(GameObject.Find("Canvas").transform);
+                newWindow.transform.position = transform.position;
+                newWindow.GetComponent<TextureImageSelect>().targetTexLoader = texLoader;
+
+                // Clean up
+                HideMenu();
+                UIManager.GetInstance().SetHoveredElements(-1); // Because pointer never leaves the menu
+            });
+            menuItemsRefs.Add(textureLoadButton);
         }
 
     }

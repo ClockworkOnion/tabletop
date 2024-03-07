@@ -11,7 +11,7 @@ public class Jukebox : MonoBehaviour
     public AudioClip buttonClick;
     public AudioClip buttonClickLight;
 
-    public AudioClip diceClicking;
+    public AudioClip[] diceClickingSounds;
 
     private AudioSource audio;
 
@@ -38,6 +38,6 @@ public class Jukebox : MonoBehaviour
 
     public void OnDiceCollision()
     {
-        audio.PlayOneShot(diceClicking);
+        audio.PlayOneShot(diceClickingSounds[Random.Range(0, diceClickingSounds.Length-1)]);
     }
 }

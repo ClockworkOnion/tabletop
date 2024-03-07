@@ -36,7 +36,7 @@ public class OptionsPanel : MonoBehaviour
     }
 
     public float GetPanSensitiviy() {
-        return panSensitivity.value;
+        return panSensitivity.value * 0.3f; // too sensitive otherwise
     }
 
     public float GetLookSensitiviy() {

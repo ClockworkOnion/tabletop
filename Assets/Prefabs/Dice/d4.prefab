@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8797805140463308848}
   - component: {fileID: 5475570205581263365}
-  m_Layer: 0
+  - component: {fileID: 7282063807825159146}
+  m_Layer: 2
   m_Name: diceSide4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +46,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 4
+--- !u!135 &7282063807825159146
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4786920201500199532}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5696141834983386447
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +355,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6721113101853224444}
   - component: {fileID: 3955326166369953687}
-  m_Layer: 0
+  - component: {fileID: 6125744400021841151}
+  m_Layer: 2
   m_Name: diceSide3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,6 +391,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 3
+--- !u!135 &6125744400021841151
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6107443920041928463}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7392862128856564095
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +422,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3790262718819271527}
   - component: {fileID: 1407882693817543577}
-  m_Layer: 0
+  - component: {fileID: 6613920809602757575}
+  m_Layer: 2
   m_Name: diceSide2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,6 +458,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 2
+--- !u!135 &6613920809602757575
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7392862128856564095}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8332538937322234890
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +489,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1903390666022375245}
   - component: {fileID: 8684006865201191814}
-  m_Layer: 0
+  - component: {fileID: 4716420167187566415}
+  m_Layer: 2
   m_Name: diceSide1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,3 +525,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 1
+--- !u!135 &4716420167187566415
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332538937322234890}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}

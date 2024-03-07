@@ -43,7 +43,6 @@ public class ChatWindow : MonoBehaviour
 
         string parsedMessage = ParseChatMessage(inputText);
         playerNetworkHandler.HandleChatMsgServerRpc(parsedMessage);
-
     }
 
     /// <summary>
@@ -54,7 +53,6 @@ public class ChatWindow : MonoBehaviour
     public string ParseChatMessage(string inputText)
     {
         if (inputText[0] != '/') return inputText;
-
         string returnText = inputText;
         string[] tokens = inputText.Split(' ');
         if (tokens[0] == "/roll" || tokens[0] == "/r") return DiceRoller(tokens[1]);
